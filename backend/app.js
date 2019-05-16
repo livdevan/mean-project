@@ -1,8 +1,20 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 const app = express();
 
 const Post = require("./models/post");
+
+mongoose
+  .connect(
+    "mongodb+srv://livadmin:VSVJ8CqIjmHwXIEl@cluster0-74tqn.mongodb.net/node-angular?retryWrites=true"
+  )
+  .then(() => {
+    console.log("Connected to database!");
+  })
+  .catch(() => {
+    console.log("Connection failed!");
+  });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -25,7 +37,7 @@ app.post("/posts", (req, res, next) => {
     title: req.body.title,
     content: req.body.content
   });
-  console.log(post);
+  post.save();
   res.status(201).json({
     message: "Post added successfully"
   });
