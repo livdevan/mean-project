@@ -7,7 +7,7 @@ const Post = require("./models/post");
 
 mongoose
   .connect(
-    "mongodb+srv://livadmin:@cluster0-74tqn.mongodb.net/node-angular?retryWrites=true"
+    "mongodb+srv://livadmin:VSVJ8CqIjmHwXIEl@cluster0-74tqn.mongodb.net/node-angular?retryWrites=true"
   )
   .then(() => {
     console.log("Connected to database!");
@@ -50,6 +50,11 @@ app.get("/posts", (req, res, next) => {
       posts: documents
     });
   });
+});
+
+app.delete("/posts/:id", (req, res, next) => {
+  console.log(req.params.id);
+  res.status(200).json({ message: "Post deleted!" });
 });
 
 module.exports = app;
